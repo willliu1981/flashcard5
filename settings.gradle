@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Flashcard5"
+include ':app'
+
+include ':common'
+project(':common').projectDir = new File('../Kuanlibs/common')
+
+include (':kuanandroidlibs')
+project(':kuanandroidlibs').projectDir = new File('../Kuanlibs/kuanandroidlibs')
