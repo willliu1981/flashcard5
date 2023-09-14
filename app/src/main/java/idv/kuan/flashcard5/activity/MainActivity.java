@@ -43,9 +43,9 @@ public class MainActivity extends ProxyMainActivity {
             e.printStackTrace();
         }
 
-        changeTableStructure(versionCode);
+        //changeTableStructure(versionCode);
 
-        testCreate();
+        //testCreate();
         testQuery();
     }
 
@@ -58,6 +58,7 @@ public class MainActivity extends ProxyMainActivity {
                 " \"translation\" TEXT NOT NULL, " +
                 " \"test1\" INTEGER, " +
                 " \"test2\" INTEGER, " +
+                " \"test3\" INTEGER, " +
                 " \"at_created\" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
                 " \"at_updated\" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
                 " PRIMARY KEY(\"id\" AUTOINCREMENT) " +
@@ -71,7 +72,7 @@ public class MainActivity extends ProxyMainActivity {
                 System.out.println("xxx MA: data=" + appVersion);
                 TableSchemaModifiers.createOrUpdateTableWithDataMigration(connection,
                         appVersion, "word", sql1, "(id,term,translation," +
-                                "at_created,at_updated,test1,test2) select id,term,translation,at_created,at_updated,-1,-2");
+                                "at_created,at_updated,test1,test2,test3) select id,term,translation,at_created,at_updated,-1,-2,-3");
             }
         });
 

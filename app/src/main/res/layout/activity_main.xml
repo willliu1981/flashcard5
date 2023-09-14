@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <!-- 這是已被proxy activity 取代的activity -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

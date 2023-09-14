@@ -11,7 +11,7 @@ import idv.kuan.flashcard5.R;
 
 
 public class WordHubActivity extends AppCompatActivity {
-private Button btnWordEdit;
+    private Button btnAddWord, btnWordEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +22,23 @@ private Button btnWordEdit;
     }
 
 
-    private void init(){
+    private void init() {
         initComponents();
     }
 
-    private void initComponents(){
-        (btnWordEdit=findViewById(R.id.word_hub_edit_word)).setOnClickListener(new View.OnClickListener() {
+    private void initComponents() {
+        (btnWordEdit = findViewById(R.id.word_hub_edit_word)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(WordHubActivity.this,WordEditActivity.class);
+                Intent intent = new Intent(WordHubActivity.this, WordEditActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        (btnAddWord = findViewById(R.id.word_hub_add_word)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WordHubActivity.this, AddWordActivity.class);
                 startActivity(intent);
             }
         });
