@@ -12,11 +12,12 @@ import java.sql.SQLException;
 import idv.kuan.flashcard5.R;
 import idv.kuan.flashcard5.database.dao.WordDao;
 import idv.kuan.flashcard5.database.modle.Word;
+import idv.kuan.kuanandroidlibs.components.InitComponentActivity;
 import idv.kuan.libs.databases.daos.Dao;
 
 
-public class AddWordActivity extends AppCompatActivity {
-    private AutoCompleteTextView actvTerm,actvTranslation;
+public class AddWordActivity extends AppCompatActivity implements InitComponentActivity {
+    private AutoCompleteTextView actvTerm, actvTranslation;
     private Button btnConfirm;
 
     @Override
@@ -27,20 +28,21 @@ public class AddWordActivity extends AppCompatActivity {
         init();
     }
 
-
-    private void init() {
+    @Override
+    public void init() {
         initComponents();
     }
 
-    private void initComponents() {
-        actvTerm=findViewById(R.id.add_word_actv_term);
-        actvTranslation=findViewById(R.id.add_word_actv_translation);
+    @Override
+    public void initComponents() {
+        actvTerm = findViewById(R.id.add_word_actv_term);
+        actvTranslation = findViewById(R.id.add_word_actv_translation);
 
-        (btnConfirm=findViewById(R.id.add_word_btn_confirm)).setOnClickListener(new View.OnClickListener() {
+        (btnConfirm = findViewById(R.id.add_word_btn_confirm)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dao dao=new WordDao();
-                Word word=new Word();
+                Dao dao = new WordDao();
+                Word word = new Word();
                 word.setTerm(actvTerm.getText().toString());
                 word.setTranslation(actvTranslation.getText().toString());
 
