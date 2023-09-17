@@ -1,6 +1,7 @@
 package idv.kuan.flashcard5.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -66,6 +67,7 @@ public class WordHubActivity extends AppCompatActivity implements InitComponentA
         });
 
         (rvItemWordView = findViewById(R.id.word_hub_rv_word_list)).setLayoutManager(new LinearLayoutManager(this));
+        rvItemWordView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
     }
