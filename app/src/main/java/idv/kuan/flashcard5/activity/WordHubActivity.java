@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,14 @@ import idv.kuan.libs.databases.daos.Dao;
 
 
 public class WordHubActivity extends AppCompatActivity implements InitComponentActivity {
+    public static int REQUEST_CODE_EDIT_WORD = 1;
+    public static int REQUEST_CODE_ADD_WORD = 2;
+    public static String RESULT_CODE_EDIT_WORD_UPDATE = "update";
+    public static String RESULT_CODE_EDIT_WORD_DELETE = "delete";
+
+    public static String RESULT_KEY_OPERATION = "operation";
+    public static String RESULT_KEY_WORD = "word";
+
     private Button btnAddWord, btnWordEdit;
     private RecyclerView rvItemWordView;
 
@@ -50,7 +59,7 @@ public class WordHubActivity extends AppCompatActivity implements InitComponentA
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WordHubActivity.this, AddWordActivity.class);
-                startActivity(intent);
+                ((Activity) view.getContext()).startActivityForResult(intent, WordHubActivity.REQUEST_CODE_ADD_WORD);
             }
         });
 
@@ -76,8 +85,33 @@ public class WordHubActivity extends AppCompatActivity implements InitComponentA
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == WordEditActivity.REQUEST_CODE && resultCode == RESULT_OK) {
-            refreshWordList();
+        if (requestCode == WordHubActivity.REQUEST_CODE_ADD_WORD && resultCode == RESULT_OK) {
+            String word = data.getStringExtra(WordHubActivity.RESULT_KEY_WORD);
+            String toastMsg = "";
+            if (word == null) {
+                toastMsg = "error";
+            } else {
+                toastMsg = "Added " + word;
+                refreshWordList();
+            }
+            Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == WordHubActivity.REQUEST_CODE_EDIT_WORD && resultCode == RESULT_OK) {
+            String word = data.getStringExtra(WordHubActivity.RESULT_KEY_WORD);
+            String operation = data.getStringExtra(WordHubActivity.RESULT_KEY_OPERATION);
+            String toastMsg = "";
+            if (operation == null || word == null) {
+                toastMsg = "error";
+            } else {
+                if (operation.equals(WordHubActivity.RESULT_CODE_EDIT_WORD_UPDATE)) {
+                    toastMsg = "Updated " + word;
+                    refreshWordList();
+                } else if (operation.equals(WordHubActivity.RESULT_CODE_EDIT_WORD_DELETE)) {
+                    toastMsg = word + " has been deleted";
+                    refreshWordList();
+                }
+            }
+
+            Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
         }
 
 

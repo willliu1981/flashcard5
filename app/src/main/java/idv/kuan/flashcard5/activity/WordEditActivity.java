@@ -22,11 +22,13 @@ import idv.kuan.kuanandroidlibs.components.InitComponentActivity;
 import idv.kuan.libs.databases.daos.Dao;
 
 public class WordEditActivity extends AppCompatActivity implements InitComponentActivity {
-    public static int REQUEST_CODE = 1;
+
+
     private AutoCompleteTextView actvTerm, actvTranslation;
     private Button btnConfirm, btnOptions;
 
     private int itemId;
+    private String originalWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
         init();
 
         Intent intent = this.getIntent();
-        actvTerm.setText(intent.getStringExtra("term"));
+        actvTerm.setText(originalWord = intent.getStringExtra("term"));
         actvTranslation.setText(intent.getStringExtra("translation"));
         itemId = intent.getIntExtra("id", -1);
 
@@ -68,7 +70,12 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
 
                 try {
                     dao.update(word);
-                    completeActivity();
+
+                    Intent intent = new Intent();
+                    intent.putExtra(WordHubActivity.RESULT_KEY_WORD, word.getTerm());
+                    intent.putExtra(WordHubActivity.RESULT_KEY_OPERATION,
+                            WordHubActivity.RESULT_CODE_EDIT_WORD_UPDATE);
+                    completeActivity(intent);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -113,12 +120,19 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
                         word.setId(itemId);
                         try {
                             dao.delete(word);
+
+                            Intent intent = new Intent();
+                            intent.putExtra(WordHubActivity.RESULT_KEY_WORD, originalWord);
+                            intent.putExtra(WordHubActivity.RESULT_KEY_OPERATION,
+                                    WordHubActivity.RESULT_CODE_EDIT_WORD_DELETE);
+                            completeActivity(intent);
                         } catch (SQLException e) {
                             e.printStackTrace();
                             Toast.makeText(WordEditActivity.this, "error", Toast.LENGTH_LONG).show();
                         }
                         dialogInterface.dismiss();
-                        completeActivity();
+
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -137,7 +151,16 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
     }
 
     private void completeActivity() {
-        setResult(RESULT_OK);
+        completeActivity(null);
+    }
+
+    private void completeActivity(Intent intent) {
+        if (intent == null) {
+            setResult(RESULT_OK);
+        } else {
+            setResult(RESULT_OK, intent);
+        }
+
         finish();
     }
 

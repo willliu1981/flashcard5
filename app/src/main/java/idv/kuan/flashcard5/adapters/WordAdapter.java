@@ -48,8 +48,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
                 intent.putExtra("id", word.getId());
                 intent.putExtra("term", word.getTerm());
                 intent.putExtra("translation", word.getTranslation());
-                //view.getContext().startActivity(intent);
-                ((Activity) view.getContext()).startActivityForResult(intent,WordEditActivity. REQUEST_CODE);
+                ((Activity) view.getContext()).startActivityForResult(intent, WordHubActivity.REQUEST_CODE_EDIT_WORD);
             }
         });
     }
