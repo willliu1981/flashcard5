@@ -43,7 +43,7 @@ public class MainActivity extends ProxyMainActivity {
             e.printStackTrace();
         }
 
-        //changeTableStructure(versionCode);
+        changeTableStructure(versionCode);
 
         //testCreate();
         testQuery();

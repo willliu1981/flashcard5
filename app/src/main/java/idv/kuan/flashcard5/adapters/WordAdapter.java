@@ -2,6 +2,7 @@ package idv.kuan.flashcard5.adapters;
 
 import idv.kuan.flashcard5.R;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import idv.kuan.flashcard5.activity.WordHubActivity;
 import idv.kuan.flashcard5.database.modle.Word;
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
+
     private List<Word> wordList;
 
     public WordAdapter(List<Word> wordList) {
@@ -43,10 +45,11 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), WordEditActivity.class);
-                intent.putExtra("id",word.getId());
+                intent.putExtra("id", word.getId());
                 intent.putExtra("term", word.getTerm());
                 intent.putExtra("translation", word.getTranslation());
-                view.getContext().startActivity(intent);
+                //view.getContext().startActivity(intent);
+                ((Activity) view.getContext()).startActivityForResult(intent,WordEditActivity. REQUEST_CODE);
             }
         });
     }

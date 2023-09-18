@@ -1,5 +1,6 @@
 package idv.kuan.flashcard5.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,26 +39,12 @@ public class WordHubActivity extends AppCompatActivity implements InitComponentA
     public void init() {
         initComponents();
 
-        Dao dao = new WordDao();
-        try {
-            List listWord = dao.findAll();
-            WordAdapter wordAdapter = new WordAdapter(listWord);
-            rvItemWordView.setAdapter(wordAdapter);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        refreshWordList();
 
     }
 
     @Override
     public void initComponents() {
-        (btnWordEdit = findViewById(R.id.word_hub_btn_edit_word)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(WordHubActivity.this, WordEditActivity.class);
-                startActivity(intent);
-            }
-        });
 
         (btnAddWord = findViewById(R.id.word_hub_btn_add_word)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +56,29 @@ public class WordHubActivity extends AppCompatActivity implements InitComponentA
 
         (rvItemWordView = findViewById(R.id.word_hub_rv_word_list)).setLayoutManager(new LinearLayoutManager(this));
         rvItemWordView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+
+    }
+
+    public void refreshWordList() {
+        Dao dao = new WordDao();
+        try {
+            List listWord = dao.findAll();
+            WordAdapter wordAdapter = new WordAdapter(listWord);
+            rvItemWordView.setAdapter(wordAdapter);
+            rvItemWordView.refreshDrawableState();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == WordEditActivity.REQUEST_CODE && resultCode == RESULT_OK) {
+            refreshWordList();
+        }
 
 
     }
