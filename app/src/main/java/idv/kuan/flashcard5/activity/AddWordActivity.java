@@ -51,7 +51,7 @@ public class AddWordActivity extends AppCompatActivity implements InitComponentA
                 try {
                     dao.create(word);
                     Intent intent=new Intent().putExtra(WordHubActivity.RESULT_KEY_WORD,word.getTerm());
-                    completeActivity(intent);
+                    completeActivity(AddWordActivity.this, intent);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -60,17 +60,4 @@ public class AddWordActivity extends AppCompatActivity implements InitComponentA
 
     }
 
-    private void completeActivity() {
-        completeActivity(null);
-    }
-
-    private void completeActivity(Intent intent) {
-        if (intent == null) {
-            setResult(RESULT_OK);
-        } else {
-            setResult(RESULT_OK, intent);
-        }
-
-        finish();
-    }
 }

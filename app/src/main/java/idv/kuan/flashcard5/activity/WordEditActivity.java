@@ -75,7 +75,7 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
                     intent.putExtra(WordHubActivity.RESULT_KEY_WORD, word.getTerm());
                     intent.putExtra(WordHubActivity.RESULT_KEY_OPERATION,
                             WordHubActivity.RESULT_CODE_EDIT_WORD_UPDATE);
-                    completeActivity(intent);
+                    completeActivity(WordEditActivity.this, intent);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -125,7 +125,7 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
                             intent.putExtra(WordHubActivity.RESULT_KEY_WORD, originalWord);
                             intent.putExtra(WordHubActivity.RESULT_KEY_OPERATION,
                                     WordHubActivity.RESULT_CODE_EDIT_WORD_DELETE);
-                            completeActivity(intent);
+                            completeActivity(WordEditActivity.this, intent);
                         } catch (SQLException e) {
                             e.printStackTrace();
                             Toast.makeText(WordEditActivity.this, "error", Toast.LENGTH_LONG).show();
@@ -150,18 +150,5 @@ public class WordEditActivity extends AppCompatActivity implements InitComponent
         });
     }
 
-    private void completeActivity() {
-        completeActivity(null);
-    }
-
-    private void completeActivity(Intent intent) {
-        if (intent == null) {
-            setResult(RESULT_OK);
-        } else {
-            setResult(RESULT_OK, intent);
-        }
-
-        finish();
-    }
 
 }
