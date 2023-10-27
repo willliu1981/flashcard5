@@ -19,6 +19,7 @@ public class WordDao extends CommonDao<Word> {
         builder.addColumnValue("translation", entity.getTranslation());
         builder.addColumnValue("at_created", entity.getAtCreated());
         builder.addColumnValue("translation", entity.getTranslation());
+        //builder.addColumnValue("translation5", entity.getTranslation() + "_test");
 
     }
 
