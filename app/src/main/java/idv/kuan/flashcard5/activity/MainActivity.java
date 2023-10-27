@@ -69,13 +69,14 @@ public class MainActivity extends ProxyMainActivity {
         tableSchemaModifier.addSchemaModifierExecutor(new SchemaModifierExecutor() {
             @Override
             public void execute() {
-                System.out.println("xxx MA: data=" + appVersion);
                 TableSchemaModifiers.createOrUpdateTableWithDataMigration(connection,
                         appVersion, "word", sql1, "(id,term,translation," +
                                 "at_created,at_updated,test1,test2,test3) select id,term,translation,at_created,at_updated,-1,-2,-3");
+                //最後組合出來的sql 可能會是:"INSERT INTO " + tableName + partMigrateSql + " FROM " + tableName + "__temp"
             }
         });
 
+        //最後必做更新db version update
         tableSchemaModifier.updateDBVersion(connection, appVersion);
 
 
