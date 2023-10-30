@@ -53,8 +53,8 @@ public class MainActivity extends ProxyMainActivity {
         Connection connection = DBFactoryCreator.getFactory().getConnection();
 
         SchemaModifierHandler handler = new SchemaModifierHandler(connection, appVersion);
-        SchemaModifierHandler.SchemaModifierCreator schemaModifierCreator = handler.getSchemaModifierCreator();
-        schemaModifierCreator.setConstructionSql("CREATE TABLE \"word\" ( " +
+        SchemaModifierHandler.SchemaModifierBuilder builder = handler.getSchemaModifierCreator();
+        builder.setConstructionSql("CREATE TABLE \"word\" ( " +
                 " \"id\" INTEGER NOT NULL UNIQUE, " +
                 " \"term\" TEXT NOT NULL, " +
                 " \"translation\" TEXT NOT NULL, " +
@@ -65,10 +65,10 @@ public class MainActivity extends ProxyMainActivity {
                 ")");
 
         //$$$ 這部分需做反射處理
-        TableSchemaModifier schemaModifier = (TableSchemaModifier) schemaModifierCreator.createSchemaModifier();
+        TableSchemaModifier schemaModifier = (TableSchemaModifier) builder.createSchemaModifier(TableSchemaModifier.class);
         schemaModifier.setTableName("word");
         schemaModifier.setCurrentColumns("id,term,translation,at_created,at_updated,translation5");
-        schemaModifier.setSelectedColumns("id,term,translation,at_created,at_updated,'N/A5X3'");
+        schemaModifier.setSelectedColumns("id,term,translation,at_created,at_updated,'N/A RF1'");
         /* or set columns mapping
         schemaModifier.setColumnsMapping("id,term,translation,at_created,at_updated,translation5 :" +
                 "id,term,translation,at_created,at_updated,'N/A5X2'");

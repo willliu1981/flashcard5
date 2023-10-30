@@ -9,7 +9,7 @@ android {
         applicationId "idv.kuan.flashcard5"
         minSdk 28
         targetSdk 32
-        versionCode 37
+        versionCode 38
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
