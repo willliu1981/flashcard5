@@ -2,6 +2,7 @@ package idv.kuan.flashcard5.database.modle;
 
 import java.sql.Timestamp;
 
+import idv.kuan.flashcard5.database.Metadata;
 import idv.kuan.libs.databases.models.CommonEntity;
 
 public class Word implements CommonEntity {
@@ -10,6 +11,7 @@ public class Word implements CommonEntity {
     private String translation;
     private Timestamp atCreated;
     private Timestamp atUpdated;
+    private Metadata metadata;
 
     @Override
     public Integer getId() {
@@ -57,6 +59,10 @@ public class Word implements CommonEntity {
         this.atUpdated = atUpdated;
     }
 
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
     @Override
     public String toString() {
         return "Word{" +
@@ -65,6 +71,12 @@ public class Word implements CommonEntity {
                 ", translation='" + translation + '\'' +
                 ", atCreated=" + atCreated +
                 ", atUpdated=" + atUpdated +
+                ", metadata=" + metadata +
                 '}';
     }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
 }
