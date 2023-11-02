@@ -10,11 +10,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import idv.kuan.flashcard5.database.Metadata;
 import idv.kuan.flashcard5.database.dao.WordDao;
 import idv.kuan.flashcard5.database.modle.Word;
 import idv.kuan.kuanandroidlibs.activites.ProxyMainActivity;
 import idv.kuan.kuanandroidlibs.databases.provider.AndroidDBFactory;
+import idv.kuan.libs.databases.models.MetadataEntity;
 import idv.kuan.libs.databases.utils.DBFactoryBuilder;
 import idv.kuan.libs.databases.utils.schema.modifier.SchemaModifierHandler;
 import idv.kuan.libs.databases.utils.schema.modifier.TableSchemaModifier;
@@ -88,12 +88,17 @@ public class MainActivity extends ProxyMainActivity {
     public void testCreate() {
         WordDao dao = new WordDao();
         Word word = new Word();
-        Metadata metadata=new Metadata(1);
+
 
         word.setTerm("term2_" + ((int) (Math.random() * 100)));
         word.setTranslation("translation1");
-        metadata.setData("[text:234]");
-        word.setMetadata(metadata);
+
+        MetadataEntity.Metadata metadata = word.getMetadata();
+        metadata.setData("test 2");
+        metadata.setVersion(2);
+
+
+
 
 
 

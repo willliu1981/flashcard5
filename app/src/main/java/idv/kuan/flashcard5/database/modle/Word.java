@@ -1,27 +1,13 @@
 package idv.kuan.flashcard5.database.modle;
 
-import java.sql.Timestamp;
 
-import idv.kuan.flashcard5.database.Metadata;
-import idv.kuan.libs.databases.models.CommonEntity;
+import idv.kuan.libs.databases.models.MetadataEntity;
 
-public class Word implements CommonEntity {
-    private Integer id;
+public class Word extends MetadataEntity {
+
     private String term;
     private String translation;
-    private Timestamp atCreated;
-    private Timestamp atUpdated;
-    private Metadata metadata;
 
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTerm() {
         return term;
@@ -39,44 +25,15 @@ public class Word implements CommonEntity {
         this.translation = translation;
     }
 
-    @Override
-    public Timestamp getAtCreated() {
-        return atCreated;
-    }
-
-    @Override
-    public void setAtCreated(Timestamp atCreated) {
-        this.atCreated = atCreated;
-    }
-
-    @Override
-    public Timestamp getAtUpdated() {
-        return atUpdated;
-    }
-
-    @Override
-    public void setAtUpdated(Timestamp atUpdated) {
-        this.atUpdated = atUpdated;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
 
     @Override
     public String toString() {
         return "Word{" +
-                "id=" + id +
-                ", term='" + term + '\'' +
+                "term='" + term + '\'' +
                 ", translation='" + translation + '\'' +
-                ", atCreated=" + atCreated +
-                ", atUpdated=" + atUpdated +
+                ", id=" + id +
                 ", metadata=" + metadata +
                 '}';
-    }
-
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
     }
 
 }
