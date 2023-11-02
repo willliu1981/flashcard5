@@ -31,17 +31,7 @@ public class WordDao extends CommonDao<Word> {
         builder.addColumnValue("at_created", entity.getAtCreated());
         builder.addColumnValue("translation", entity.getTranslation());
         //*
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
-        try {
-            oos = new ObjectOutputStream(bos);
-            oos.writeObject(entity.getMetadata());
-            oos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] dataToSave = bos.toByteArray();
-
+        byte[] dataToSave = MetadataEntityUtil.serializeMetadata(entity.getMetadata());
         builder.addColumnValue("metadata", dataToSave);
 
         // */
@@ -67,7 +57,7 @@ public class WordDao extends CommonDao<Word> {
 
         //*
         byte[] retrievedData = resultSet.getBytes("metadata");
-        MetadataEntity.Metadata metadata = MetadataEntityUtil.metadataBuilder().setData(retrievedData).build();
+        MetadataEntity.Metadata metadata = MetadataEntityUtil.metadataBuilder().setData(retrievedData).buildMetadata();
         entity.setMetadata(metadata);
 
         // */

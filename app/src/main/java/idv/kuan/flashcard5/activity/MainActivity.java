@@ -94,7 +94,7 @@ public class MainActivity extends ProxyMainActivity {
         word.setTranslation("translation1");
 
         MetadataEntity.Metadata metadata = word.getMetadata();
-        metadata.setData("test 2");
+        metadata.setData("test 3");
         metadata.setVersion(2);
 
 
